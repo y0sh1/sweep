@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  sweepai:
+    build: .
+    command: python sweepai/api.py
+    environment:
+      - BOT_TOKEN_NAME
+      - GITHUB_BOT_USERNAME
+      - GITHUB_LABEL_NAME
+      - GITHUB_LABEL_COLOR
+      - GITHUB_LABEL_DESCRIPTION
+    ports:
+      - 8000:8000
+  mongodb:
+    image: mongo:4.4.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    volumes:
+      - mongodb_data:/data/db
+  redis:
+    image: redis:4.5.5
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mongodb_data:
+  redis_data:
